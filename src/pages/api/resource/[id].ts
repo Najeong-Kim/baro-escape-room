@@ -30,14 +30,14 @@ export default async function handler(
             const time = /\d{2}:\d{2}/.exec(selected.textContent || "")
             return {
               time: time ? time[0] : "",
-              isBooked: selected.classList.contains('waiting')
+              isBooked: selected.classList.contains('closed')
             }
           })
       }
 
       const boxTimeList = getTimeList(td, '상자')
       const happyTimeList = getTimeList(td, '행복')
-      
+
       return { date: date || '-', boxTimeList, happyTimeList }
     })
   });
