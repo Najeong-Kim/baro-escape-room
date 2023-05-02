@@ -21,11 +21,7 @@ export default function Home() {
           </ButtonList>
         </div>
         <div>
-          <CardList>
-            <Card />
-            <Card />
-            <Card />
-          </CardList>
+          <CardList />
         </div>
       </main>
     </>
