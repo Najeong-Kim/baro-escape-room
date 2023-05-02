@@ -30,7 +30,7 @@ export default async function handler(
             const time = /\d{2}:\d{2}/.exec(selected.textContent || "")
             return {
               time: time ? time[0] : "",
-              isBooked: selected.classList.contains('closed')
+              isBooked: selected.classList.contains('disable')
             }
           })
       }
