@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react';
 import Card from './Card'
 
+interface ThemeList {
+  [key: string]: {
+    date: string;
+    timeList: {
+      time: string;
+      isBooked: boolean;
+    }[]
+  }[]
+}
+
 export default function CardList() {
-  const [themeList, setThemeList] = useState({})
+  const [themeList, setThemeList] = useState<ThemeList>({})
 
   useEffect(() => {
     (async () => {
