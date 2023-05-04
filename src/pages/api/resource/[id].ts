@@ -2,6 +2,18 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { storeList } from '@/static/storeList'
 import chromium from 'chrome-aws-lambda'
 
+interface Td {
+  date: string;
+  boxTimeList: {
+    time: string;
+    isBooked: boolean;
+  }[];
+  happyTimeList: {
+    time: string;
+    isBooked: boolean;
+  }[];
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -21,7 +33,7 @@ export default async function handler(
 
   await page.goto(store.link);
 
-  const tdList = await page.$$eval('td.booking_day.pc_day', tdList => {
+  const tdList: Td[] = await page.$$eval('td.booking_day.pc_day', tdList => {
     return tdList.filter(td => !td.classList.contains('full_day')).map(_td => {
       const td = _td as HTMLElement
       const date = td.dataset['date']
