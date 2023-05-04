@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { storeList } from '@/static/storeList'
-import puppeteer from 'puppeteer-core'
+import chromium from 'chrome-aws-lambda'
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,7 +14,7 @@ export default async function handler(
     return
   }
 
-  const browser = await puppeteer.launch();
+  const browser = await chromium.puppeteer.launch();
   const page = await browser.newPage();
 
   await page.goto(store.link);
