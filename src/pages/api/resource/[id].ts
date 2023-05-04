@@ -14,7 +14,9 @@ export default async function handler(
     return
   }
 
-  const browser = await chromium.puppeteer.launch();
+  const browser = await chromium.puppeteer.launch({
+    executablePath: await chromium.executablePath,
+  });
   const page = await browser.newPage();
 
   await page.goto(store.link);
