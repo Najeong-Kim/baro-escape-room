@@ -9,7 +9,7 @@ interface Props {
 export default function Card({themeName, date, time, isBooked, cafeName}: Props) {
   return (
     <div className="p-6 bg-gray-50 shadow-lg rounded-md w-56 h-64">
-      <h1 className="text-lg font-semibold text-slate-900 w-44">
+      <h1 className="text-lg font-semibold text-slate-900 w-44 truncate">
         {themeName}
       </h1>
       <div className="text-sm font-medium text-slate-600">
