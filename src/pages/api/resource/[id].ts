@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { storeList } from '@/static/storeList'
 import chromium from 'chrome-aws-lambda'
-import  puppeteer  from  'puppeteer-core' 
+import puppeteer from 'puppeteer-core' 
 
 interface Td {
   date: string;
@@ -27,12 +27,12 @@ export default async function handler(
     return
   }
 
-  const executablePath = await chromium.executablePath
+  const LOCAL_CHROMIUM_PATH = '/opt/homebrew/bin/chromium'
+
+  const executablePath = await chromium.executablePath || LOCAL_CHROMIUM_PATH;
 
   const browser = await puppeteer.launch({
     executablePath,
-    args: chromium.args,
-    headless: false,
   })
   const page = await browser.newPage();
 
