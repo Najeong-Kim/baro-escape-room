@@ -4,15 +4,10 @@ import chromium from 'chrome-aws-lambda'
 import puppeteer from 'puppeteer-core' 
 
 interface Td {
+  themeName: string;
   date: string;
-  boxTimeList: {
-    time: string;
-    isBooked: boolean;
-  }[];
-  happyTimeList: {
-    time: string;
-    isBooked: boolean;
-  }[];
+  time: string;
+  isBooked: boolean;
 }
 
 export default async function handler(
@@ -43,33 +38,21 @@ export default async function handler(
       const td = _td as HTMLElement
       const date = td.dataset['date']
 
-      const getTimeList = (element: HTMLElement, keyword: string) => {
-        return Array.from(element.querySelectorAll('div.booking_list'))
-          .filter(selected => selected.textContent?.includes(keyword))
-          .map(selected => {
-            const time = /\d{2}:\d{2}/.exec(selected.textContent || "")
-            return {
-              time: time ? time[0] : "",
-              isBooked: selected.classList.contains('disable')
-            }
-          })
-      }
-
-      const boxTimeList = getTimeList(td, '상자')
-      const happyTimeList = getTimeList(td, '행복')
-
-      return { date: date || '-', boxTimeList, happyTimeList }
-    })
+      return Array.from(td.querySelectorAll('div.booking_list'))
+        .filter(selected => selected.textContent?.includes('상자') || selected.textContent?.includes('행복'))
+        .map(selected => {
+          const time = /\d{2}:\d{2}/.exec(selected.textContent || "")
+          return {
+            themeName: selected.textContent?.includes('상자') ? '그림자 없는 상자' : '사람들은 그것을 행복이라 부르기로 했다',
+            date: date || '',
+            time: time ? time[0] : "",
+            isBooked: selected.classList.contains('disable')
+          }
+        })
+    }).flat()
   });
 
-  const result = {
-    '그림자 없는 상자': tdList.map(td => {
-      return { date: td.date, timeList: td.boxTimeList }
-    }),
-    '사람들은 그것을 행복이라 부르기로 했다': tdList.map(td => {
-      return { date: td.date, timeList: td.happyTimeList }
-    })
-  }
+  const result = tdList
 
   await browser.close();
 
