@@ -9,7 +9,11 @@ interface Theme {
   isBooked: boolean;
 }
 
-export default function CardList() {
+interface Props {
+  isChecked: boolean;
+}
+
+export default function CardList({ isChecked }: Props) {
   const [themeList, setThemeList] = useState<Theme[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -26,7 +30,9 @@ export default function CardList() {
   return (
     <div className="flex overflow-x-auto space-x-4 w-full h-72">
       {isLoading && <div className="flex w-full h-auto justify-center items-center"><Spinner /></div>}
-      {themeList.map(({themeName, date, time, isBooked}) => (
+      {themeList
+        .filter(theme => isChecked ? theme.isBooked === false : true)
+        .map(({themeName, date, time, isBooked}) => (
         <Card
           key={`${themeName}-${date}-${time}`}
           themeName={themeName}
