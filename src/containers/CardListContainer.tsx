@@ -3,15 +3,9 @@ import Card from '../components/Card'
 import CardList from '../components/CardList'
 import Spinner from '../components/Spinner'
 import { storeList } from '@/static/storeList'
+import { Theme } from '@/types/theme'
 
 import { compareDates, getSelectedDate } from '../util/date'
-
-interface Theme {
-  themeName: string;
-  date: string;
-  time: string;
-  isBooked: boolean;
-}
 
 interface Props {
   isChecked: boolean;
