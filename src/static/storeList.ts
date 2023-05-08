@@ -1,7 +1,7 @@
 export const storeList: StoreListType[] = [
   {
     id: 1,
-    name: 'dpsnnn',
+    name: '단편선',
     link: 'https://www.dpsnnn.com/reserve'
   }
 ]

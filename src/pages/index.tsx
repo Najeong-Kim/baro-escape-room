@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head'
-import CardList from '../components/CardList'
+import CardListContainer from '@/containers/CardListContainer';
 import ButtonList from '../components/ButtonList'
 import Button from '../components/Button'
 import Checkbox from '../components/Checkbox'
@@ -36,7 +36,7 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <CardList
+          <CardListContainer
             isChecked={isChecked}
             selectedDate={selectedDate}
           />
