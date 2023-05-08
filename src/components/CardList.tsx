@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Card from './Card'
 import Spinner from './Spinner'
 
+import { compareDates, getSelectedDate } from '../util/date'
+
 interface Theme {
   themeName: string;
   date: string;
@@ -11,9 +13,10 @@ interface Theme {
 
 interface Props {
   isChecked: boolean;
+  selectedDate: string;
 }
 
-export default function CardList({ isChecked }: Props) {
+export default function CardList({ isChecked, selectedDate }: Props) {
   const [themeList, setThemeList] = useState<Theme[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -32,16 +35,18 @@ export default function CardList({ isChecked }: Props) {
       {isLoading && <div className="flex w-full h-auto justify-center items-center"><Spinner /></div>}
       {themeList
         .filter(theme => isChecked ? theme.isBooked === false : true)
-        .map(({themeName, date, time, isBooked}) => (
-        <Card
-          key={`${themeName}-${date}-${time}`}
-          themeName={themeName}
-          date={date}
-          time={time}
-          isBooked={isBooked}
-          cafeName="단편선"
-        />
-      ))}
+        .filter(theme => ["today", "tomorrow"].includes(selectedDate) ? compareDates(getSelectedDate(selectedDate), new Date(theme.date)) : true)
+        .map(({themeName, date, time, isBooked}) => {
+          return (
+          <Card
+            key={`${themeName}-${date}-${time}`}
+            themeName={themeName}
+            date={date}
+            time={time}
+            isBooked={isBooked}
+            cafeName="단편선"
+          />
+      )})}
     </div>
   )
 }

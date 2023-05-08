@@ -7,6 +7,11 @@ import Checkbox from '../components/Checkbox'
 
 export default function Home() {
   const [isChecked, setIsChecked] = useState(false)
+  const [selectedDate, setSelectedDate] = useState("")
+
+  const toggleSelectedDate = (date: string) => {
+    setSelectedDate(selectedDate === date ? "" : date)
+  }
 
   return (
     <>
@@ -18,9 +23,9 @@ export default function Home() {
         <h1 className="font-bold text-3xl">바로방탈출</h1>
         <div className="flex my-5 justify-between">
           <ButtonList>
-            <Button text="오늘" />
-            <Button text="내일" />
-            <Button text="이번주" />
+            <Button date="today" text="오늘" selectedDate={selectedDate} onClick={() => toggleSelectedDate("today")}/>
+            <Button date="tomorrow" text="내일" selectedDate={selectedDate} onClick={() => toggleSelectedDate("tomorrow")}/>
+            <Button date="thisweek" text="이번주" selectedDate={selectedDate} onClick={() => toggleSelectedDate("thisweek")}/>
           </ButtonList>
           <div className="flex gap-2 items-center">
             <Checkbox
@@ -33,6 +38,7 @@ export default function Home() {
         <div>
           <CardList
             isChecked={isChecked}
+            selectedDate={selectedDate}
           />
         </div>
       </main>
