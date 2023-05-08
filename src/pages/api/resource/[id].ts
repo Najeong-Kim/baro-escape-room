@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { storeList } from '@/static/storeList'
 import chromium from 'chrome-aws-lambda'
-import puppeteer from 'puppeteer-core' 
-import { Theme } from '@/types/theme'
+import puppeteer from 'puppeteer-core'
+
+import { storeList } from '@/static/storeList'
 import { getThemeList } from '@/util/crawling'
 
 export default async function handler(

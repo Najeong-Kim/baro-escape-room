@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import Card from '../components/Card'
-import CardList from '../components/CardList'
-import Spinner from '../components/Spinner'
+
+import Card from '@/components/Card'
+import CardList from '@/components/CardList'
+import Spinner from '@/components/Spinner'
+
 import { storeList } from '@/static/storeList'
 import { Theme } from '@/types/theme'
 
-import { compareDates, getSelectedDate } from '../util/date'
+import { compareDates, getSelectedDate } from '@/util/date'
 
 interface Props {
   isChecked: boolean;

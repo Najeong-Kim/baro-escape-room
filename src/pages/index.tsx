@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Head from 'next/head'
+
 import CardListContainer from '@/containers/CardListContainer';
-import ButtonList from '../components/ButtonList'
-import Button from '../components/Button'
-import Checkbox from '../components/Checkbox'
+import ButtonList from '@/components/ButtonList'
+import Button from '@/components/Button'
+import Checkbox from '@/components/Checkbox'
 
 export default function Home() {
   const [isChecked, setIsChecked] = useState(false)
